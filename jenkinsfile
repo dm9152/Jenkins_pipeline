@@ -1,18 +1,25 @@
 pipeline {
-    
+
     agent {
         docker {
             image 'node:slim'
         }
     }
 
+    options {
+        timeout(time: 1, unit: 'HOURS')
+        disableConcurrentBuilds()
+    }
+
     stages {
 
 
-        stage('Build') {
+        stage('Build') {  
+            
             options {
                 timestamps()
             }
+
             steps {
                 echo "Build en cours avec timestamps..."
                 sh 'npm -v'
