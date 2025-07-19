@@ -49,7 +49,7 @@ pipeline {
                 echo "Text parameter value: ${params.TEXT}" 
                 echo "Choice parameter value: ${params.CHOICE}"
                 echo "Boolean parameter value: ${params.BOOLEAN}"
-                echo "Password parameter value: ${PASSWORD}"
+                echo "Password parameter value: ${params.PASSWORD}"
             }
         }
 
