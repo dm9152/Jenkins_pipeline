@@ -1,85 +1,43 @@
-pipeline {
-
-    agent {
-        docker {
-            image 'node:slim'
-        }
-    }
+pipeline{
+    agent any
 
     options {
         timeout(time: 1, unit: 'HOURS')
         disableConcurrentBuilds()
+        timestamps()
     }
-
-
-    /*parameters{
-        string(name: 'STRING', defaultValue: 'Durel', description: 'This is description of string parameter')
-        text(name: 'TEXT', defaultValue: 'TEXT', description: 'This is description of text parameter')
-        choice(name: 'CHOICE', choices: ['PROD', 'DEV', 'PREPROD'], description: 'This is description of choice parameter')
-        booleanParam(name: 'BOOLEAN', defaultValue: true, description: 'This is description of boolean parameter')
-        password(name: 'PASSWORD', description: 'This is description of password parameter')
-    }*/
-
-    triggers {
-        // cron('* * * * *')
-        pollSCM('* * * * *')
-    }
-
 
     stages {
-
-
-        stage('Build') {  
-
-            options {
-                timestamps()
-            }
-
+        stage('build'){
             steps {
-                echo "Build en cours avec timestamps..."
-                sh 'npm -v'
+                echo 'Building build...'
             }
+
         }
 
-
-        stage('Tests') {
-
-            options{
-                timestamps()
-            }
-
+        stage('test'){
             steps {
-                echo 'Running tests...'
-                /* 
-                echo "String parameter value: ${params.STRING}"
-                echo "Text parameter value: ${params.TEXT}" 
-                echo "Choice parameter value: ${params.CHOICE}"
-                echo "Boolean parameter value: ${params.BOOLEAN}"
-                echo "Password parameter value: ${params.PASSWORD}"
-                */
+                echo 'Building test...'
             }
+            
         }
-
 
         stage('deployment'){
-            steps{
-                echo 'Deployment complete!'
+            input{
+                message 'Do you want to deploy?'
+                ok 'Deploy Now'
+                submitter 'admin,devops,durel'
+                submitterParameter 'ADMIN'
+                parameters{
+                    choice(name: 'ENVIRONMENT', choices: ['PRODUCTION', 'DEV', 'PREPROP'], description: 'Select the environment to deploy')
+                }
             }
-        }
-
-
-    }
-
-
-    post {
-        always {
-            echo "This will always run"
-        }
-        success {
-            echo "This will run only if the pipeline is successful"
-        }
-        failure {
-            echo "This will run only if the pipeline fails"
+            steps{
+                echo 'Deploying...'
+                echo "The user who approved the deployment is: ${params.ADMIN}"
+                echo "THE ENVIRONEMENT IS ${params.ENVIRONMENT}.."
+            }
+            
         }
     }
 
