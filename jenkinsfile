@@ -1,35 +1,41 @@
-pipeline{
+pipeline {
+    
     agent {
-        docker{
+        docker {
             image 'node:slim'
         }
     }
 
-    environment{
-        MY_VAR = 'My first variable'
-        MY_NUMBER = 42
-    }
+    stages {
 
-    stages{
 
-        stage('build'){
+        stage('Build') {
+            options {
+                timestamps()
+            }
             steps {
+                echo "Build en cours avec timestamps..."
                 sh 'npm -v'
             }
         }
 
-        stage('tests'){
+
+        stage('Tests') {
             steps {
                 echo 'Running tests...'
             }
         }
+
 
         stage('deployment'){
             steps{
                 echo 'Deployment complete!'
             }
         }
+
+
     }
+
 
     post {
         always {
@@ -42,4 +48,5 @@ pipeline{
             echo "This will run only if the pipeline fails"
         }
     }
+
 }
