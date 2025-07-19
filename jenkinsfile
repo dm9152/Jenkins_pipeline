@@ -34,8 +34,8 @@ pipeline{
             }
             steps{
                 echo 'Deploying...'
-                echo "The user who approved the deployment is: ${params.ADMIN}"
-                echo "THE ENVIRONEMENT IS ${params.ENVIRONMENT}.."
+                echo "The user who approved the deployment is: ${ADMIN}"
+                echo "THE ENVIRONEMENT IS ${ENVIRONMENT}.."
             }
             
         }
