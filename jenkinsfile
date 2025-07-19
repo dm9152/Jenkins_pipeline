@@ -24,7 +24,7 @@ pipeline {
         cron('* * * * *') 
     }
 
-    
+
     stages {
 
 
@@ -49,11 +49,13 @@ pipeline {
 
             steps {
                 echo 'Running tests...'
+                /* 
                 echo "String parameter value: ${params.STRING}"
                 echo "Text parameter value: ${params.TEXT}" 
                 echo "Choice parameter value: ${params.CHOICE}"
                 echo "Boolean parameter value: ${params.BOOLEAN}"
                 echo "Password parameter value: ${params.PASSWORD}"
+                */
             }
         }
 
