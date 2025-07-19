@@ -12,15 +12,19 @@ pipeline {
     }
 
 
-    parameters{
-
+    /*parameters{
         string(name: 'STRING', defaultValue: 'Durel', description: 'This is description of string parameter')
         text(name: 'TEXT', defaultValue: 'TEXT', description: 'This is description of text parameter')
         choice(name: 'CHOICE', choices: ['PROD', 'DEV', 'PREPROD'], description: 'This is description of choice parameter')
         booleanParam(name: 'BOOLEAN', defaultValue: true, description: 'This is description of boolean parameter')
         password(name: 'PASSWORD', description: 'This is description of password parameter')
+    }*/
+
+    triggers {
+        cron('* * * * *') 
     }
 
+    
     stages {
 
 
