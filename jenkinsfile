@@ -1,5 +1,9 @@
 pipeline{
-    agent any
+    agent {
+        docker{
+            image 'node:slim'
+        }
+    }
 
     environment{
         MY_VAR = 'My first variable'
@@ -23,6 +27,17 @@ pipeline{
         stage('deployment'){
             steps{
                 echo 'Deployment complete!'
+            }
+        }
+
+        post{
+            always{
+                echo "This will always run"
+
+            }
+
+            success{
+                echo "This will run only if the pipeline is successful"
             }
         }
 
