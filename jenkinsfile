@@ -22,13 +22,13 @@ pipeline{
             
             parallel{
 
-                stage('FIRST TEST'):{
+                stage('FIRST TEST'){
                     steps{
                         echo "Running first test..."
                     }
                 }
 
-                stage('SECOND TEST'):{
+                stage('SECOND TEST'){
                     steps{
                         echo "Running second test..."
                     }
@@ -38,7 +38,9 @@ pipeline{
         }
 
         stage('DEPLOYMENT'){
-             steps{}
+             steps{
+                echo "Deployment in progress..."
+             }
         }
 
     }
