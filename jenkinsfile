@@ -7,6 +7,10 @@ pipeline{
         timestamps()
     }
 
+    environment {
+        ENVIRONMENT = 'PRODUCTION'
+    }
+
     stages {
         stage('build'){
             steps {
@@ -26,7 +30,10 @@ pipeline{
 
             when {
                 beforeAgent true
-                branch 'production'
+                allOf {
+                    branch 'master'
+                    environment name: 'ENVIRONMENT', value: 'PRODUCTION'
+                }
             }
 
             /*input{
@@ -41,8 +48,8 @@ pipeline{
             
             steps{
                 echo 'Deploying...'
-                echo "The user who approved the deployment is: ${ADMIN}"
-                echo "THE ENVIRONEMENT IS ${ENVIRONMENT}.."
+                // echo "The user who approved the deployment is: ${ADMIN}"
+                // echo "THE ENVIRONEMENT IS ${ENVIRONMENT}.."
             }
             
         }
