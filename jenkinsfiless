@@ -1,0 +1,65 @@
+pipeline{
+    agent any
+
+    options {
+        timeout(time: 1, unit: 'HOURS')
+        disableConcurrentBuilds()
+        timestamps()
+    }
+
+    environment {
+        ENVIRONMENT = 'PRODUCTION'
+    }
+
+    parameters{
+        booleanParam(name: 'APPLY_DEPLOY', defaultValue: true, description: 'APPLY_DEPLOY ?')
+    }
+
+    stages {
+        stage('build'){
+            steps {
+                echo 'Building build...'
+            }
+
+        }
+
+        stage('test'){
+            steps {
+                echo 'Building test...'
+            }
+            
+        }
+
+        stage('deployment'){
+
+            when {
+                beforeAgent true
+                allOf {
+                    branch 'master'
+                    expression { params.APPLY_DEPLOY == true }
+                    expression { env.environment == 'PRODUCTION' }
+                    // equals expected: true, actual: params.APPLY_DEPLOY
+                    // environment name: 'ENVIRONMENT', value: 'PRODUCTION'
+                }
+            }
+
+            /*input{
+                message 'Do you want to deploy?'
+                ok 'Deploy Now'
+                submitter 'admin,devops,durel'
+                submitterParameter 'ADMIN'
+                parameters{
+                    choice(name: 'ENVIRONMENT', choices: ['PRODUCTION', 'DEV', 'PREPROP'], description: 'Select the environment to deploy')
+                }
+            }*/
+            
+            steps{
+                echo 'Deploying...'
+                // echo "The user who approved the deployment is: ${ADMIN}"
+                // echo "THE ENVIRONEMENT IS ${ENVIRONMENT}.."
+            }
+            
+        }
+    }
+
+}
