@@ -3,41 +3,29 @@ pipeline {
     agent any
 
     matrix {
-        axes {
-
-            axis {
-                name 'OS'
-                values 'linux', 'windows'
-            }
-
-            axis {
-                name 'JAVA_VERSION'
-                values '11', '17'
-            }
-            
-        }
-
-        stages {
-
-            stage('Build') {
-                steps {
-                    script {
-                        echo "Building on ${OS} with Java ${JAVA_VERSION}"
-
-                    }
-                }
-            }
-
-            stage('Test') {
-                steps {
-                    script {
-                        echo "Running tests on ${OS} with Java ${JAVA_VERSION}"
-                    }
-                }
-            }
-
+    axes {
+        axis {
+            name 'PLATFORM'
+            values 'linux', 'mac', 'windows'
         }
     }
+    stages {
+        stage('build') {
+            steps {
+                echo "construire sur la plate-forme : ${PLATFORM}"
+            }
+        }
+        stage('test') {
+            steps {
+                echo "tester sur la plate-forme : ${PLATFORM}"
+            }
+        }
+        stage('deploy') {
+            steps {
+                echo "déployer sur la plate-forme : ${PLATFORM}"
+            }
+        }
+    }
+    }
 
-    
 }
