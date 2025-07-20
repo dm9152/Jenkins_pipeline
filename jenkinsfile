@@ -36,8 +36,10 @@ pipeline{
                 beforeAgent true
                 allOf {
                     branch 'master'
-                    equals expected: true, actual: params.APPLY_DEPLOY
-                    environment name: 'ENVIRONMENT', value: 'PRODUCTION'
+                    expression { params.APPLY_DEPLOY == true }
+                    expression { env.environment == 'PRODUCTION' }
+                    // equals expected: true, actual: params.APPLY_DEPLOY
+                    // environment name: 'ENVIRONMENT', value: 'PRODUCTION'
                 }
             }
 
