@@ -12,7 +12,7 @@ pipeline{
     }
 
     parameters{
-        boolean(name: 'APPLY_DEPLOY', defaultValue: true, description: 'APPLY_DEPLOY ?')
+        booleanParam(name: 'APPLY_DEPLOY', defaultValue: true, description: 'APPLY_DEPLOY ?')
     }
 
     stages {
