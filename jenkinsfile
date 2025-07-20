@@ -1,31 +1,38 @@
 pipeline {
 
-    agent any
+    agent none
 
-    matrix {
-    axes {
-        axis {
-            name 'PLATFORM'
-            values 'linux', 'mac', 'windows'
-        }
-    }
     stages {
-        stage('build') {
-            steps {
-                echo "construire sur la plate-forme : ${PLATFORM}"
-            }
-        }
-        stage('test') {
-            steps {
-                echo "tester sur la plate-forme : ${PLATFORM}"
-            }
-        }
-        stage('deploy') {
-            steps {
-                echo "déployer sur la plate-forme : ${PLATFORM}"
-            }
-        }
-    }
-    }
 
+        stage('BuildAndTest') {
+
+            matrix {
+                agent any
+                axes {
+                    axis {
+                        name 'PLATFORM'
+                        values 'linux', 'windows', 'mac'
+                    }
+                    axis {
+                        name 'BROWSER'
+                        values 'firefox', 'chrome', 'safari', 'edge'
+                    }
+                }
+                stages {
+                    stage('Build') {
+                        steps {
+                            echo "Do Build for ${PLATFORM} - ${BROWSER}"
+                        }
+                    }
+                    stage('Test') {
+                        steps {
+                            echo "Do Test for ${PLATFORM} - ${BROWSER}"
+                        }
+                    }
+                }
+            }
+            
+        }
+
+    }
 }
