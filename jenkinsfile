@@ -1,36 +1,41 @@
 pipeline {
 
-    agent any 
+    agent any
 
     matrix {
-
         axes {
 
             axis {
-                name 'os'
-                values 'linux', 'windows', 'macos'
+                name 'OS'
+                values 'linux', 'windows'
             }
 
             axis {
-                name 'browser'
-                values 'chrome', 'firefox', 'safari'
-
+                name 'JAVA_VERSION'
+                values '11', '17'
             }
+            
+        }
 
-            stages {
+        stages {
 
-                stage('Build') {
-                    steps {
-                        echo "Building on ${os} with ${browser}"    
-                    }
-                }
+            stage('Build') {
+                steps {
+                    script {
+                        echo "Building on ${OS} with Java ${JAVA_VERSION}"
 
-                stage('TEST') {
-                    steps {
-                        echo "Running tests on ${os} with ${browser}"
                     }
                 }
             }
+
+            stage('Test') {
+                steps {
+                    script {
+                        echo "Running tests on ${OS} with Java ${JAVA_VERSION}"
+                    }
+                }
+            }
+
         }
     }
 
