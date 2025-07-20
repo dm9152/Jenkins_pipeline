@@ -23,6 +23,12 @@ pipeline{
         }
 
         stage('deployment'){
+
+            when {
+                beforeAgent true
+                branch 'production'
+            }
+
             input{
                 message 'Do you want to deploy?'
                 ok 'Deploy Now'
@@ -32,6 +38,7 @@ pipeline{
                     choice(name: 'ENVIRONMENT', choices: ['PRODUCTION', 'DEV', 'PREPROP'], description: 'Select the environment to deploy')
                 }
             }
+            
             steps{
                 echo 'Deploying...'
                 echo "The user who approved the deployment is: ${ADMIN}"
