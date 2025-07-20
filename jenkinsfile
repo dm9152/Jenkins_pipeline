@@ -1,33 +1,33 @@
-pipeline{
+pipeline {
 
     agent any 
 
-    matrix{
+    matrix {
 
-        axes{
+        axes {
 
-            axis{
+            axis {
                 name 'os'
                 values 'linux', 'windows', 'macos'
             }
 
-            axis{
+            axis {
                 name 'browser'
                 values 'chrome', 'firefox', 'safari'
 
             }
 
-            stages{
+            stages {
 
-                stage('Build'){
-                    steps{
+                stage('Build') {
+                    steps {
                         echo "Building on ${os} with ${browser}"    
                     }
                 }
 
-                stage('TEST'){
-                    steps{
-                        
+                stage('TEST') {
+                    steps {
+                        echo "Running tests on ${os} with ${browser}"
                     }
                 }
             }
