@@ -29,7 +29,7 @@ pipeline{
                 branch 'production'
             }
 
-            input{
+            /*input{
                 message 'Do you want to deploy?'
                 ok 'Deploy Now'
                 submitter 'admin,devops,durel'
@@ -37,7 +37,7 @@ pipeline{
                 parameters{
                     choice(name: 'ENVIRONMENT', choices: ['PRODUCTION', 'DEV', 'PREPROP'], description: 'Select the environment to deploy')
                 }
-            }
+            }*/
             
             steps{
                 echo 'Deploying...'
