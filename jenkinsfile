@@ -1,85 +1,38 @@
-pipeline {
+pipeline{
 
-    agent {
-        docker {
-            image 'node:slim'
-        }
-    }
+    agent any 
 
-    options {
-        timeout(time: 1, unit: 'HOURS')
-        disableConcurrentBuilds()
-    }
+    matrix{
 
+        axes{
 
-    parameters{
-        string(name: 'STRING', defaultValue: 'Durel', description: 'This is description of string parameter')
-        text(name: 'TEXT', defaultValue: 'TEXT', description: 'This is description of text parameter')
-        choice(name: 'CHOICE', choices: ['PROD', 'DEV', 'PREPROD'], description: 'This is description of choice parameter')
-        booleanParam(name: 'BOOLEAN', defaultValue: true, description: 'This is description of boolean parameter')
-        password(name: 'PASSWORD', description: 'This is description of password parameter')
-    }
-
-    triggers {
-        // cron('* * * * *')
-        pollSCM('* * * * *')
-    }
-
-
-    stages {
-
-
-        stage('Build') {  
-
-            options {
-                timestamps()
+            axis{
+                name 'os'
+                values 'linux', 'windows', 'macos'
             }
 
-            steps {
-                echo "Build en cours avec timestamps..."
-                sh 'npm -v'
-            }
-        }
+            axis{
+                name 'browser'
+                values 'chrome', 'firefox', 'safari'
 
-
-        stage('Tests') {
-
-            options{
-                timestamps()
             }
 
-            steps {
-                echo 'Running tests...'
+            stages{
 
-                echo "String parameter value: ${params.STRING}"
-                echo "Text parameter value: ${params.TEXT}" 
-                echo "Choice parameter value: ${params.CHOICE}"
-                echo "Boolean parameter value: ${params.BOOLEAN}"
-                echo "Password parameter value: ${params.PASSWORD}"
+                stage('Build'){
+                    steps{
+                        echo "Building on ${os} with ${browser}"    
+                    }
+                }
+
+                stage('TEST'){
+                    steps{
+                        
+                    }
+                }
             }
-        }
-
-
-        stage('deployment'){
-            steps{
-                echo 'Deployment complete!'
-            }
-        }
-
-
-    }
-
-
-    post {
-        always {
-            echo "This will always run"
-        }
-        success {
-            echo "This will run only if the pipeline is successful"
-        }
-        failure {
-            echo "This will run only if the pipeline fails"
         }
     }
 
+    
 }
