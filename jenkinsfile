@@ -18,7 +18,9 @@ pipeline{
 
         stage('TEST'){
             
-            parallelFailFast true
+            options {
+                parallelFailFast()
+            }
 
             parallel{
 
