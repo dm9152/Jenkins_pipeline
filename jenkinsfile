@@ -6,6 +6,7 @@ pipeline{
         timestamps()
         timeout(time: 1, unit: 'HOURS')
         disableConcurrentBuilds()
+        parallelsAlwaysFailFast()
     }
 
     stages {
@@ -18,7 +19,8 @@ pipeline{
 
         stage('TEST'){
             
-            failFast true
+            // failFast true
+            
 
             parallel{
 
