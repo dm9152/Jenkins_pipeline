@@ -1,0 +1,49 @@
+pipeline{
+
+    agent any 
+
+    options {
+        timestamps()
+        timeout(time: 1, unit: 'HOURS')
+        disableConcurrentBuilds()
+        parallelsAlwaysFailFast()
+    }
+
+    stages {
+
+        stage('BUILD'){
+            steps{
+                echo "Build in progress..."
+            }
+        }
+
+        stage('TEST'){
+            
+            // failFast true
+            
+
+            parallel{
+
+                stage('FIRST TEST'){
+                    steps{
+                        echo "Running first test..."
+                    }
+                }
+
+                stage('SECOND TEST'){
+                    steps{
+                        echo "Running second test..."
+                    }
+                }
+            }
+             
+        }
+
+        stage('DEPLOYMENT'){
+             steps{
+                echo "Deployment in progress..."
+             }
+        }
+
+    }
+}
