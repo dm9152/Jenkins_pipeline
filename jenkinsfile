@@ -18,8 +18,8 @@ pipeline{
 
         stage('TEST'){
             
-            failfast true
-            
+            failFast true
+
             parallel{
 
                 stage('FIRST TEST'){
