@@ -41,7 +41,7 @@ pipeline {
             steps {
                 echo "Build en cours avec timestamps..."
                 sh 'echo hello world >> world.txt'
-                // sh 'gradle -v'
+                echo "Initializing Node.js and Gradle....."
                 sh 'npm -v'
                 sh 'gradle -v'
                 archiveArtifacts (artifacts: 'world.txt')
