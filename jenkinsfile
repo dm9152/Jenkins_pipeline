@@ -12,7 +12,7 @@ pipeline {
     }
 
 
-    parameters{
+    parameters{     
         string(name: 'STRING', defaultValue: 'Durel', description: 'This is description of string parameter')
         text(name: 'TEXT', defaultValue: 'TEXT', description: 'This is description of text parameter')
         choice(name: 'CHOICE', choices: ['PROD', 'DEV', 'PREPROD'], description: 'This is description of choice parameter')
@@ -37,6 +37,8 @@ pipeline {
 
             steps {
                 echo "Build en cours avec timestamps..."
+                sh 'echo hello world >> world.txt'
+                archiveArtifacts (artifacts: 'world.txt')
                 sh 'npm -v'
             }
         }
