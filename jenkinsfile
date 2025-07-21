@@ -17,6 +17,7 @@ pipeline {
     tools {
         // gradle 'gradle1'
         nodejs 'node21'
+        gradle 'gradle9'
     }
 
     parameters{     
