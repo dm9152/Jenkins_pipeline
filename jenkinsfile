@@ -15,7 +15,6 @@ pipeline {
     
 
     tools {
-        // gradle 'gradle1'
         nodejs 'node21'
         gradle 'gradle9'
     }
@@ -44,6 +43,7 @@ pipeline {
                 sh 'echo hello world >> world.txt'
                 // sh 'gradle -v'
                 sh 'npm -v'
+                sh 'gradle -v'
                 archiveArtifacts (artifacts: 'world.txt')
                 
             }
