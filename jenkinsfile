@@ -10,7 +10,11 @@ pipeline {
         timeout(time: 1, unit: 'HOURS')
         disableConcurrentBuilds()
     }
+    
 
+    tools{
+        gradle 'gradle-9.0'
+    }
 
     parameters{     
         string(name: 'STRING', defaultValue: 'Durel', description: 'This is description of string parameter')
@@ -37,7 +41,8 @@ pipeline {
 
             steps {
                 echo "Build en cours avec timestamps..."
-                sh 'echo hello world >> world.txt'
+                sh 'echo hello world > world.txt'
+                sh 'gradle -v >> world.txt'
                 archiveArtifacts (artifacts: 'world.txt')
                 sh 'npm -v'
             }
