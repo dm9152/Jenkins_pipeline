@@ -8,6 +8,7 @@ pipeline {
     agent any
 
     options {
+        timestamps
         timeout(time: 1, unit: 'HOURS')
         disableConcurrentBuilds()
     }
@@ -36,10 +37,6 @@ pipeline {
 
         stage('Build') {  
 
-            options {
-                timestamps()
-            }
-
             steps {
                 echo "Build en cours avec timestamps..."
                 sh 'echo hello world > world.txt'
@@ -52,9 +49,6 @@ pipeline {
 
         stage('Tests') {
 
-            options{
-                timestamps()
-            }
 
             steps {
                 echo 'Running tests...'
