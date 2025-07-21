@@ -15,7 +15,8 @@ pipeline {
     
 
     tools {
-        gradle 'gradle1'
+        // gradle 'gradle1'
+        gradle 'node21'
     }
 
     parameters{     
@@ -39,10 +40,11 @@ pipeline {
 
             steps {
                 echo "Build en cours avec timestamps..."
-                sh 'echo hello world > world.txt'
-                sh 'gradle -v'
-                archiveArtifacts (artifacts: 'world.txt')
+                sh 'echo hello world >> world.txt'
+                // sh 'gradle -v'
                 sh 'npm -v'
+                archiveArtifacts (artifacts: 'world.txt')
+                
             }
         }
 
